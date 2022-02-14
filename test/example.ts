@@ -40,7 +40,9 @@ const gridUrl = 'https://' + USERNAME + ':' + KEY + '@' + GRID_HOST;
    })
    it("Goole News", async function(){
       await driver.findElement(By.name('q')).sendKeys("News");
-      await driver.findElement(By.name('q')).sendKeys(Key.ENTER);
+      // await driver.findElement(By.name('q')).sendKeys(Key.ENTER);
+      driver.actions().sendKeys(Key.ENTER).sendKeys(Key.CONTROL);
+
       let title = await driver.getTitle();
       chai.expect("News - Google Search").to.eqls(title);
       let list = await driver.findElements(By.partialLinkText("https://"))
