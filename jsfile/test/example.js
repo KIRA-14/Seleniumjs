@@ -70,7 +70,8 @@ describe("Google", function () {
         it("Goole News", function () {
             return __awaiter(this, void 0, void 0, function* () {
                 yield driver.findElement(selenium_webdriver_1.By.name('q')).sendKeys("News");
-                yield driver.findElement(selenium_webdriver_1.By.name('q')).sendKeys(selenium_webdriver_1.Key.ENTER);
+                // await driver.findElement(By.name('q')).sendKeys(Key.ENTER);
+                yield driver.actions().sendKeys(selenium_webdriver_1.Key.ENTER).sendKeys(selenium_webdriver_1.Key.CONTROL);
                 let title = yield driver.getTitle();
                 chai.expect("News - Google Search").to.eqls(title);
                 let list = yield driver.findElements(selenium_webdriver_1.By.partialLinkText("https://"));

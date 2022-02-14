@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2022-02-07T01:18:12.259Z",
-    "end": "2022-02-07T01:18:29.687Z",
-    "duration": 17428,
+    "start": "2022-02-14T11:04:53.720Z",
+    "end": "2022-02-14T11:05:24.169Z",
+    "duration": 30449,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "b2ccd303-d3e6-40f9-bddf-3a68a2cc6131",
+      "uuid": "2caf62cd-19bc-4ada-8cb2-885fcdef83eb",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,16 +27,16 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "5c217484-d5ae-4bf0-a4a4-1bcad24eab2d",
+          "uuid": "3f9339a0-fe19-4f5a-bab9-5f9632d0b5c3",
           "title": "Google",
-          "fullFile": "C:\\Users\\Ravikiran\\OneDrive\\Documents\\Seleniumjs\\jsfile\\test\\example.js",
+          "fullFile": "C:\\Users\\Ravikiran\\OneDrive\\Documents\\QA\\Seleniumjs\\jsfile\\test\\example.js",
           "file": "\\jsfile\\test\\example.js",
           "beforeHooks": [
             {
               "title": "\"before each\" hook in \"Google\"",
               "fullTitle": "Google \"before each\" hook in \"Google\"",
               "timedOut": false,
-              "duration": 2458,
+              "duration": 3063,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "return __awaiter(this, void 0, void 0, function* () {\n    const service = new chrome_1.default.ServiceBuilder('driver/chromedriver.exe');\n    driver = new selenium_webdriver_1.Builder().forBrowser(\"chrome\").setChromeService(service).build();\n    // driver = new Builder().usingServer(gridUrl).withCapabilities(capabilities).build();\n    yield driver.manage().window().maximize();\n    yield driver.get(\"https://www.google.com/?gws_rd=ssl\");\n});",
               "err": {},
-              "uuid": "a9e13f68-0860-48cc-b576-d86be7b96878",
-              "parentUUID": "5c217484-d5ae-4bf0-a4a4-1bcad24eab2d",
+              "uuid": "5027a478-9730-4ddb-8044-c5afaf6cc176",
+              "parentUUID": "3f9339a0-fe19-4f5a-bab9-5f9632d0b5c3",
               "isHook": true,
               "skipped": false
             }
@@ -56,7 +56,7 @@
               "title": "\"after each\" hook in \"Google\"",
               "fullTitle": "Google \"after each\" hook in \"Google\"",
               "timedOut": false,
-              "duration": 59,
+              "duration": 68,
               "state": null,
               "speed": null,
               "pass": false,
@@ -65,8 +65,8 @@
               "context": null,
               "code": "return __awaiter(this, void 0, void 0, function* () {\n    yield driver.quit();\n});",
               "err": {},
-              "uuid": "8784766a-a08d-460f-bba9-ebdbcfe7fe26",
-              "parentUUID": "5c217484-d5ae-4bf0-a4a4-1bcad24eab2d",
+              "uuid": "8cc72d9d-1045-4457-9a75-6cc332074429",
+              "parentUUID": "3f9339a0-fe19-4f5a-bab9-5f9632d0b5c3",
               "isHook": true,
               "skipped": false
             }
@@ -85,8 +85,8 @@
               "context": null,
               "code": "return __awaiter(this, void 0, void 0, function* () {\n    let title = yield driver.getTitle();\n    driver.takeScreenshot().then((image) => {\n        require('fs')\n            .writeFile('screenshot/one.png', image, 'base64', (err) => { console.log(err); });\n    });\n    chai.expect(\"Google\").to.eqls(title);\n});",
               "err": {},
-              "uuid": "936a2a05-23ea-4a7f-8f1d-0f6b3bd459ba",
-              "parentUUID": "5c217484-d5ae-4bf0-a4a4-1bcad24eab2d",
+              "uuid": "aeddaae8-90a9-423b-aaa1-f231d9edbe65",
+              "parentUUID": "3f9339a0-fe19-4f5a-bab9-5f9632d0b5c3",
               "isHook": false,
               "skipped": false
             },
@@ -94,7 +94,7 @@
               "title": "Goole News",
               "fullTitle": "Google Goole News",
               "timedOut": false,
-              "duration": 12278,
+              "duration": 12184,
               "state": "passed",
               "speed": "slow",
               "pass": true,
@@ -103,21 +103,21 @@
               "context": null,
               "code": "return __awaiter(this, void 0, void 0, function* () {\n    yield driver.findElement(selenium_webdriver_1.By.name('q')).sendKeys(\"News\");\n    yield driver.findElement(selenium_webdriver_1.By.name('q')).sendKeys(selenium_webdriver_1.Key.ENTER);\n    let title = yield driver.getTitle();\n    chai.expect(\"News - Google Search\").to.eqls(title);\n    let list = yield driver.findElements(selenium_webdriver_1.By.partialLinkText(\"https://\"));\n    list.forEach((s) => __awaiter(this, void 0, void 0, function* () {\n        let url = yield s.getAttribute(\"href\");\n        if (url.includes(\"news.google\")) {\n            console.log(url);\n        }\n        yield driver\n            .executeScript(\"arguments[0].style.backgroundColor='yellow'\", s);\n        yield driver.wait(() => __awaiter(this, void 0, void 0, function* () { return ((yield s.getCssValue(\"backgroundColor\")) === \"yellow\"); }), 3000);\n        yield s.click();\n        // await driver.navigate().to(\"https://news.google.co.in/\");\n    }));\n    yield driver.sleep(10000);\n    title = yield driver.getTitle();\n    chai.expect(\"News - Google Search\").to.eqls(title);\n});",
               "err": {},
-              "uuid": "9129cefc-73eb-4413-9a67-dea4175f5a7e",
-              "parentUUID": "5c217484-d5ae-4bf0-a4a4-1bcad24eab2d",
+              "uuid": "cae4c967-f3fd-4a91-a8d1-582ab44ad226",
+              "parentUUID": "3f9339a0-fe19-4f5a-bab9-5f9632d0b5c3",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "936a2a05-23ea-4a7f-8f1d-0f6b3bd459ba",
-            "9129cefc-73eb-4413-9a67-dea4175f5a7e"
+            "aeddaae8-90a9-423b-aaa1-f231d9edbe65",
+            "cae4c967-f3fd-4a91-a8d1-582ab44ad226"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 12288,
+          "duration": 12194,
           "root": false,
           "rootEmpty": false,
           "_timeout": 0
