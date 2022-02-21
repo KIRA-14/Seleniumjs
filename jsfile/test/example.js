@@ -34,7 +34,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const selenium_webdriver_1 = require("selenium-webdriver");
 const chrome_1 = __importDefault(require("selenium-webdriver/chrome"));
 const chai = __importStar(require("chai"));
-describe("Google", function () {
+describe("AbiBus", function () {
     return __awaiter(this, void 0, void 0, function* () {
         const USERNAME = "kiran.raman14";
         // Accesskey:  Accesskey can be generated from automation dashboard or profile section
@@ -49,7 +49,7 @@ describe("Google", function () {
                 driver = new selenium_webdriver_1.Builder().forBrowser("chrome").setChromeService(service).build();
                 // driver = new Builder().usingServer(gridUrl).withCapabilities(capabilities).build();
                 yield driver.manage().window().maximize();
-                yield driver.get("https://www.google.com/?gws_rd=ssl");
+                yield driver.get("https://www.abhibus.com/");
             });
         });
         afterEach(function () {
@@ -57,39 +57,15 @@ describe("Google", function () {
                 yield driver.quit();
             });
         });
-        it("Goole Haome", function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                let title = yield driver.getTitle();
-                driver.takeScreenshot().then((image) => {
-                    require('fs')
-                        .writeFile('screenshot/one.png', image, 'base64', (err) => { console.log(err); });
-                });
-                chai.expect("Google").to.eqls(title);
-            });
-        });
-        it("Goole News", function () {
-            return __awaiter(this, void 0, void 0, function* () {
-                yield driver.findElement(selenium_webdriver_1.By.name('q')).sendKeys("News");
-                // await driver.findElement(By.name('q')).sendKeys(Key.ENTER);
-                yield driver.actions().sendKeys(selenium_webdriver_1.Key.ENTER).sendKeys(selenium_webdriver_1.Key.CONTROL);
-                let title = yield driver.getTitle();
-                chai.expect("News - Google Search").to.eqls(title);
-                let list = yield driver.findElements(selenium_webdriver_1.By.partialLinkText("https://"));
-                list.forEach((s) => __awaiter(this, void 0, void 0, function* () {
-                    let url = yield s.getAttribute("href");
-                    if (url.includes("news.google")) {
-                        console.log(url);
-                    }
-                    yield driver
-                        .executeScript("arguments[0].style.backgroundColor='yellow'", s);
-                    yield driver.wait(() => __awaiter(this, void 0, void 0, function* () { return ((yield s.getCssValue("backgroundColor")) === "yellow"); }), 3000);
-                    yield s.click();
-                    // await driver.navigate().to("https://news.google.co.in/");
-                }));
-                yield driver.sleep(10000);
-                title = yield driver.getTitle();
-                chai.expect("News - Google Search").to.eqls(title);
-            });
-        });
+        it('validate container and page title', () => __awaiter(this, void 0, void 0, function* () {
+            let title = yield driver.getTitle();
+            chai.expect("Book Bus Tickets Online at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
+                .eqls(title);
+        }));
+        it('validate container and page title', () => __awaiter(this, void 0, void 0, function* () {
+            let title = yield driver.getTitle();
+            chai.expect("Book Bus Tickets at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
+                .eqls(title);
+        }));
     });
 });
