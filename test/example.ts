@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import Basepage from '../POM/basepage';
+import Basepage from '../POM/Basepage';
 import HomePage from '../POM/HomePage';
 
 describe("AbiBus", async function () {
@@ -15,25 +15,26 @@ describe("AbiBus", async function () {
    let bs: Basepage;
    let hp: HomePage;
    beforeEach(
-      function () {
+      async function () {
          bs = new Basepage();
-         bs.startApp('chrome');
+        await bs.startApp('chrome');
          hp = new HomePage();
       }
    )
    afterEach(async function () {
-      bs.endApp();
+      await bs.endApp();
    })
 
    it('validate container and page title', async () => {
-      let title = hp.getHomePageTitle();
+      let title = await hp.getHomePageTitle();
       chai.expect("Book Bus Tickets Online at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
          .eqls(title);
    });
    it('validate container and page title', async () => {
-      let title = hp.getHomePageTitle()
-      chai.expect("Book Bus Tickets at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
-         .eqls(title);
+      let title = await hp.getSelectedOption()
+      console.log(title);
+      // chai.expect("Book Bus Tickets at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
+      //    .eqls(title);
    });
 
 

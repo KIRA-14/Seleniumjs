@@ -31,41 +31,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const selenium_webdriver_1 = require("selenium-webdriver");
-const chrome_1 = __importDefault(require("selenium-webdriver/chrome"));
 const chai = __importStar(require("chai"));
+const Basepage_1 = __importDefault(require("../POM/Basepage"));
+const HomePage_1 = __importDefault(require("../POM/HomePage"));
 describe("AbiBus", function () {
     return __awaiter(this, void 0, void 0, function* () {
-        const USERNAME = "kiran.raman14";
-        // Accesskey:  Accesskey can be generated from automation dashboard or profile section
-        const KEY = 'uRtJDCYxpQAMa3uOgfiwbVcpXLI1MkQeGUqInuQ7CE5NpOFhBn';
-        // gridUrl: gridUrl can be found at automation dashboard
-        const GRID_HOST = 'hub.lambdatest.com/wd/hub';
-        const gridUrl = 'https://' + USERNAME + ':' + KEY + '@' + GRID_HOST;
-        let driver;
+        // const USERNAME = "kiran.raman14";
+        // // Accesskey:  Accesskey can be generated from automation dashboard or profile section
+        // const KEY = 'uRtJDCYxpQAMa3uOgfiwbVcpXLI1MkQeGUqInuQ7CE5NpOFhBn';
+        // // gridUrl: gridUrl can be found at automation dashboard
+        // const GRID_HOST = 'hub.lambdatest.com/wd/hub';
+        // const gridUrl = 'https://' + USERNAME + ':' + KEY + '@' + GRID_HOST;
+        // let driver: ThenableWebDriver;
+        let bs;
+        let hp;
         beforeEach(function () {
             return __awaiter(this, void 0, void 0, function* () {
-                const service = new chrome_1.default.ServiceBuilder('driver/chromedriver.exe');
-                driver = new selenium_webdriver_1.Builder().forBrowser("chrome").setChromeService(service).build();
-                // driver = new Builder().usingServer(gridUrl).withCapabilities(capabilities).build();
-                yield driver.manage().window().maximize();
-                yield driver.get("https://www.abhibus.com/");
+                bs = new Basepage_1.default();
+                yield bs.startApp('chrome');
+                hp = new HomePage_1.default();
             });
         });
         afterEach(function () {
             return __awaiter(this, void 0, void 0, function* () {
-                yield driver.quit();
+                yield bs.endApp();
             });
         });
         it('validate container and page title', () => __awaiter(this, void 0, void 0, function* () {
-            let title = yield driver.getTitle();
+            let title = yield hp.getHomePageTitle();
             chai.expect("Book Bus Tickets Online at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
                 .eqls(title);
         }));
         it('validate container and page title', () => __awaiter(this, void 0, void 0, function* () {
-            let title = yield driver.getTitle();
-            chai.expect("Book Bus Tickets at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
-                .eqls(title);
+            let title = yield hp.getSelectedOption();
+            console.log(title);
+            // chai.expect("Book Bus Tickets at Lowest Fare, Flat ₹500 Cashback On Bus Booking | AbhiBus")
+            //    .eqls(title);
         }));
     });
 });
